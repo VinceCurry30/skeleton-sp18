@@ -12,11 +12,11 @@ public class LinkedListDeque<T> {
     }
 
     private Node sentinel;
-    private T sentinel_value;
+    private T sentinelValue;
     private int size;
 
     public LinkedListDeque() {
-        sentinel = new Node(sentinel_value, sentinel, sentinel);
+        sentinel = new Node(sentinelValue, sentinel, sentinel);
         sentinel.next = sentinel;
         sentinel.pre = sentinel;
         size = 0;
@@ -58,10 +58,10 @@ public class LinkedListDeque<T> {
             return null;
         }
         size -= 1;
-        T item_to_remove = sentinel.next.item;
+        T itemToRemove = sentinel.next.item;
         sentinel.next = sentinel.next.next;
         sentinel.next.pre = sentinel;
-        return item_to_remove;
+        return itemToRemove;
     }
 
     public T removeLast() {
@@ -69,10 +69,10 @@ public class LinkedListDeque<T> {
             return null;
         }
         size -= 1;
-        T item_to_remove = sentinel.pre.item;
+        T itemToRemove = sentinel.pre.item;
         sentinel.pre = sentinel.pre.pre;
         sentinel.pre.next = sentinel;
-        return item_to_remove;
+        return itemToRemove;
     }
 
     public T get(int index) {
