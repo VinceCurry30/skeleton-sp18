@@ -11,7 +11,8 @@ public class ArrayDeque<T> {
         pre_pos = array.length - 1;
     }
 
-    private void copy_array(T[] a) {
+    private void resize_for_large() {
+        T[] a = (T[]) new Object[array.length * 2];
         if (pre_pos == size - 1) {
             pre_pos = -1;
         }
@@ -22,14 +23,21 @@ public class ArrayDeque<T> {
         next_pos = size;
     }
 
-    private void resize_for_large() {
-        T[] a = (T[]) new Object[array.length * 2];
-        copy_array(a);
-    }
-
     private void resize_for_small() {
         T[] a = (T[]) new Object[array.length / 2];
-        copy_array(a);
+        if (pre_pos == size - 1) {
+            pre_pos = -1;
+        }
+        if (pre_pos < next_pos) {
+            System.arraycopy(array, pre_pos + 1, a, 0, size);
+        }
+        else {
+            System.arraycopy(array, pre_pos + 1, a, 0, array.length - (pre_pos + 1));
+            System.arraycopy(array, 0, a, array.length - (pre_pos + 1), next_pos);
+        }
+        array = a;
+        pre_pos = array.length - 1;
+        next_pos = size;
     }
 
     public void addFirst(T item) {
