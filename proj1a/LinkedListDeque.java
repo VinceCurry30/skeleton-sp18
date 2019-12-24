@@ -14,9 +14,11 @@ public class LinkedListDeque<T> {
     private Node sentinel;
     private T sentinelValue;
     private int size;
+    private Node forGetRecusive;
 
     public LinkedListDeque() {
         sentinel = new Node(sentinelValue, sentinel, sentinel);
+        forGetRecusive = sentinel;
         sentinel.next = sentinel;
         sentinel.pre = sentinel;
         size = 0;
@@ -94,8 +96,9 @@ public class LinkedListDeque<T> {
             return null;
         }
         if (index == 0) {
-            return sentinel.next.item;
+            return forGetRecusive.next.item;
         }
+        forGetRecusive = forGetRecusive.next;
         return getRecursive(index - 1);
     }
 }
