@@ -96,7 +96,9 @@ public class LinkedListDeque<T> {
             return null;
         }
         if (index == 0) {
-            return forGetRecusive.next.item;
+            Node a = forGetRecusive;
+            forGetRecusive = sentinel;
+            return a.next.item;
         }
         forGetRecusive = forGetRecusive.next;
         return getRecursive(index - 1);
