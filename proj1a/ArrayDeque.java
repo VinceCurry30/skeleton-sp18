@@ -30,8 +30,7 @@ public class ArrayDeque<T> {
         }
         if (pre_pos < next_pos) {
             System.arraycopy(array, pre_pos + 1, a, 0, size);
-        }
-        else {
+        } else {
             System.arraycopy(array, pre_pos + 1, a, 0, array.length - (pre_pos + 1));
             System.arraycopy(array, 0, a, array.length - (pre_pos + 1), next_pos);
         }
