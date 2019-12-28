@@ -111,14 +111,23 @@ public class IntList {
         return result;
     }
 
+    /* Destructive method. */
     public static IntList reverse(IntList A) {
+        /* Get the reversed IntList non-destructively, stored in result .*/
         IntList result = null;
-        while (A != null) {
-            result = new IntList(A.first, result);
-            A = A.rest;
+        IntList temp = A;
+        while (temp != null) {
+            result = new IntList(temp.first, result);
+            temp = temp.rest;
         }
-        A = result;
-        return A;
+        /* Set items of the original IntList equal to the result. */
+        temp = result;
+        while (temp != null) {
+            A.first = temp.first;
+            A = A.rest;
+            temp = temp.rest;
+        }
+        return result;
     }
 
 

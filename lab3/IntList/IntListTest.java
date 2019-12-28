@@ -74,14 +74,16 @@ public class IntListTest {
     public void testReverse() {
         IntList L1 = IntList.of(1, 2, 3, 4);
         IntList L2 = null;
-        IntList L3 = IntList.of(1, 1, 2);
+        IntList L3 = IntList.of(1, 2, 3);
         IntList expected1 = IntList.of(4, 3, 2, 1);
         IntList expected2 = null;
-        IntList expected3 = IntList.of(2, 1, 1);
-        assertEquals(expected1, IntList.reverse(L1));
-        assertNotEquals(IntList.of(1, 2, 3, 4), IntList.reverse(L1));
-        assertEquals(expected2, IntList.reverse(L2));
-        assertEquals(expected3, IntList.reverse(L3));
+        IntList expected3 = IntList.of(1, 2, 3);
+        IntList actual1 = IntList.reverse(L1);
+        IntList actual2 = IntList.reverse(L2);
+        IntList.reverse(L3);
+        assertEquals(expected1, actual1);
+        assertEquals(expected2, actual2);
+        assertNotEquals(expected3, L3);
     }
 
 }
