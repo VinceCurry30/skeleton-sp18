@@ -67,7 +67,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     }
 
 
-    private class BufferIterator<T> implements Iterator<T> {
+    private class BufferIterator implements Iterator<T> {
         private int currentPosition;
 
         BufferIterator() {
@@ -78,7 +78,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
             return currentPosition != last;
         }
         public T next() {
-            T result = (T) rb[currentPosition];
+            T result = rb[currentPosition];
             currentPosition += 1;
             if (currentPosition == capacity) {
                 currentPosition = 0;
@@ -89,6 +89,6 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new BufferIterator<>();
+        return new BufferIterator();
     }
 }
