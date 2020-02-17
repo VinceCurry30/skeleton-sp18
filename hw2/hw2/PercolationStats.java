@@ -2,7 +2,6 @@ package hw2;
 
 import edu.princeton.cs.introcs.StdRandom;
 import edu.princeton.cs.introcs.StdStats;
-import java.lang.Math;
 
 public class PercolationStats {
     private int count;
@@ -43,5 +42,9 @@ public class PercolationStats {
     // high endpoint of 95% confidence interval
     public double confidenceHigh() {
         return mean() + 1.96 * stddev() / Math.sqrt(count);
+    }
+
+    public static void main(String[] args) {
+
     }
 }

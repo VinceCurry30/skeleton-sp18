@@ -7,7 +7,7 @@ public class Percolation {
     // the value in grid represent the site is open(true) or blocked(false)
     private Boolean[][] grid;
     private WeightedQuickUnionUF DS;
-    private WeightedQuickUnionUF DSwithvirtualtop;
+    private WeightedQuickUnionUF dsWithVirtualTop;
     private int opensitesnumber;
 
     // create N-by-N grid, with all sites initially blocked
@@ -25,7 +25,7 @@ public class Percolation {
         // last one is for virtual bottom site, second to last one is for virtual top site
         DS = new WeightedQuickUnionUF(size * size + 2);
         // avoid backwash
-        DSwithvirtualtop = new WeightedQuickUnionUF(size * size + 1);
+        dsWithVirtualTop = new WeightedQuickUnionUF(size * size + 1);
         opensitesnumber = 0;
     }
 
@@ -47,32 +47,32 @@ public class Percolation {
         if (row != 0) {
             if (isOpen(row - 1, col)) {
                 DS.union(number, number - size);
-                DSwithvirtualtop.union(number, number - size);
+                dsWithVirtualTop.union(number, number - size);
             }
         }
         if (row != size - 1) {
             if (isOpen(row + 1, col)) {
                 DS.union(number, number + size);
-                DSwithvirtualtop.union(number, number + size);
+                dsWithVirtualTop.union(number, number + size);
             }
         }
         if (col != 0) {
             if (isOpen(row, col - 1)) {
                 DS.union(number, number - 1);
-                DSwithvirtualtop.union(number, number - 1);
+                dsWithVirtualTop.union(number, number - 1);
             }
         }
         if (col != size - 1) {
             if (isOpen(row, col + 1)) {
                 DS.union(number, number + 1);
-                DSwithvirtualtop.union(number, number + 1);
+                dsWithVirtualTop.union(number, number + 1);
             }
         }
 
         // if open the site in the first row, union it with the virtual top site
         if (row == 0) {
             DS.union(number, size * size);
-            DSwithvirtualtop.union(number, size * size);
+            dsWithVirtualTop.union(number, size * size);
         }
         // if open the site in the last row, union it with the virtual bottom site
         if (row == size - 1) {
@@ -102,11 +102,7 @@ public class Percolation {
         }
         return false;
         */
-        if (DSwithvirtualtop.connected(number, size * size)) {
-            return true;
-        } else {
-            return false;
-        }
+        return dsWithVirtualTop.connected(number, size * size);
     }
 
     // number of open sites
@@ -124,10 +120,10 @@ public class Percolation {
         }
         return false;
         */
-        if (DS.connected(size * size, size * size + 1)) {
-            return true;
-        } else {
-            return false;
-        }
+        return DS.connected(size * size, size * size + 1);
+    }
+
+    public static void main(String[] args) {
+
     }
 }
