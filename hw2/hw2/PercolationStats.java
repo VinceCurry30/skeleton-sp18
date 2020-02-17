@@ -12,8 +12,8 @@ public class PercolationStats {
     public PercolationStats(int N, int T, PercolationFactory pf) {
         count = T;
         perco = new Percolation[T];
-        for (Percolation p : perco) {
-            p = pf.make(N);
+        for (int i = 0; i < T; i++) {
+            perco[i] = pf.make(N);
         }
         openfraction = new double[T];
         for (int i = 0; i < T; i++) {
@@ -45,6 +45,7 @@ public class PercolationStats {
     }
 
     public static void main(String[] args) {
-
+        PercolationFactory pf = new PercolationFactory();
+        PercolationStats percostats = new PercolationStats(20, 10, pf);
     }
 }
