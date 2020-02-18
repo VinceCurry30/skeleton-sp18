@@ -5,7 +5,6 @@ import edu.princeton.cs.introcs.StdStats;
 
 public class PercolationStats {
     private int count;
-    private Percolation[] perco;
     private double[] openfraction;
 
     // perform T independent experiments on an N-by-N grid
@@ -14,16 +13,13 @@ public class PercolationStats {
             throw new java.lang.IllegalArgumentException();
         }
         count = T;
-        perco = new Percolation[T];
-        for (int i = 0; i < T; i++) {
-            perco[i] = pf.make(N);
-        }
         openfraction = new double[T];
         for (int i = 0; i < T; i++) {
-            while (!perco[i].percolates()) {
-                perco[i].open(StdRandom.uniform(N), StdRandom.uniform(N));
+            Percolation perco = pf.make(N);
+            while (!perco.percolates()) {
+                perco.open(StdRandom.uniform(N), StdRandom.uniform(N));
             }
-            openfraction[i] = perco[i].numberOfOpenSites() * 1.0 / (N * N * 1.0);
+            openfraction[i] = perco.numberOfOpenSites() * 1.0 / (N * N * 1.0);
         }
     }
 
