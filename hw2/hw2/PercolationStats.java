@@ -43,7 +43,7 @@ public class PercolationStats {
         return mean() + 1.96 * stddev() / Math.sqrt(count);
     }
 
-    public static void main(String[] args) {
-        return;
+    private static void main(String[] args) {
+
     }
 }
