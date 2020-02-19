@@ -123,7 +123,7 @@ public class Percolation {
         return DS.connected(size * size, size * size + 1);
     }
 
-    private static void main(String[] args) {
+    public static void main(String[] args) {
 
     }
 }
