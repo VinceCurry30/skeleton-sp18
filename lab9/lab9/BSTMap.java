@@ -89,11 +89,11 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     @Override
     public void put(K key, V value) {
         if (get(key) == null) {
-            size =+ 1;
+            size += 1;
         }
         // include the situation when the key doesn't exit
         if (get(key) != value) {
-            putHelper(key, value, root);
+            root = putHelper(key, value, root);
         }
     }
 
