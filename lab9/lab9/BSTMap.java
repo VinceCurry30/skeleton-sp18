@@ -143,6 +143,10 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         // case 1 and 2
         if (p.left == null) {
             p = p.right;
+            // case 1
+            if (p == null) {
+                return null;
+            }
             return p.value;
         } else if (p.right == null) {
             p = p.left;
