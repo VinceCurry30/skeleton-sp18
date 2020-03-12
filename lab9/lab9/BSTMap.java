@@ -128,42 +128,38 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         return o;
     }
 
-    private V removeHelper(K key, Node p) {
+    private Node removeHelper(K key, Node p) {
         if (p == null) {
             return null;
         }
         if (key.compareTo(p.key) < 0) {
-            return removeHelper(key, p.left);
+            p.left = removeHelper(key, p.left);
         }
         if (key.compareTo(p.key) > 0) {
-            return removeHelper(key, p.right);
+            p.right = removeHelper(key, p.right);
         }
         // remove the current key
 
         // case 1 and 2
         if (p.left == null) {
-            p = p.right;
-            // case 1
-            if (p == null) {
-                return null;
-            }
-            return p.value;
+            return p.right;
         } else if (p.right == null) {
-            p = p.left;
-            return p.value;
+            return p.left;
         }
 
         // case 3
         Node predecessor = predecessor(p);
-        V temp = p.value;
-        removeHelper(predecessor.key, p);
-        p = predecessor;
-        return temp;
+        p.left = removeHelper(predecessor.key, p.left);
+        p.key = predecessor.key;
+        p.value = predecessor.value;
+        return p;
     }
 
     @Override
     public V remove(K key) {
-        return removeHelper(key, root);
+        V res = get(key);
+        root = removeHelper(key, root);
+        return res;
     }
 
     /** Removes the key-value entry for the specified key only if it is
