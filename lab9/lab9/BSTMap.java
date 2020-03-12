@@ -1,5 +1,6 @@
 package lab9;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -27,6 +28,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     private Node root;  /* Root node of the tree. */
     private int size; /* The number of key-value pairs in the tree */
+    private Set<K> keySet;
 
     /* Creates an empty BSTMap. */
     public BSTMap() {
@@ -38,6 +40,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     public void clear() {
         root = null;
         size = 0;
+        keySet = new HashSet<>();
     }
 
     /** Returns the value mapped to by KEY in the subtree rooted in P.
@@ -90,6 +93,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     public void put(K key, V value) {
         if (get(key) == null) {
             size += 1;
+            keySet.add(key);
         }
         // include the situation when the key doesn't exit
         if (get(key) != value) {
@@ -108,16 +112,54 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     /* Returns a Set view of the keys contained in this map. */
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        return keySet;
     }
 
     /** Removes KEY from the tree if present
      *  returns VALUE removed,
      *  null on failed removal.
      */
+
+    private Node predecessor(Node p) {
+        Node o = p.left;
+        while (o.right != null) {
+            o = o.right;
+        }
+        return o;
+    }
+
+    private V removeHelper(K key, Node p) {
+        if (p == null) {
+            return null;
+        }
+        if (key.compareTo(p.key) < 0) {
+            return removeHelper(key, p.left);
+        }
+        if (key.compareTo(p.key) > 0) {
+            return removeHelper(key, p.right);
+        }
+        // remove the current key
+
+        // case 1 and 2
+        if (p.left == null) {
+            p = p.right;
+            return p.value;
+        } else if (p.right == null) {
+            p = p.left;
+            return p.value;
+        }
+
+        // case 3
+        Node predecessor = predecessor(p);
+        V temp = p.value;
+        removeHelper(predecessor.key, p);
+        p = predecessor;
+        return temp;
+    }
+
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException();
+        return removeHelper(key, root);
     }
 
     /** Removes the key-value entry for the specified key only if it is
@@ -126,11 +168,14 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      **/
     @Override
     public V remove(K key, V value) {
-        throw new UnsupportedOperationException();
+        if (get(key) == value) {
+            return remove(key);
+        }
+        return null;
     }
 
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException();
+        return keySet.iterator();
     }
 }
