@@ -154,6 +154,9 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     @Override
     public V remove(K key) {
+        if (containsKey(key)) {
+            size -= 1;
+        }
         V res = get(key);
         root = removeHelper(key, root);
         return res;

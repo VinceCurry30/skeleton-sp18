@@ -106,6 +106,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     public V remove(K key) {
         int bucket = hash(key);
         if (buckets[bucket].containsKey(key)) {
+            size -= 1;
             return buckets[bucket].remove(key);
         }
         return null;
