@@ -124,9 +124,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
                 || min(index, rightIndex(index)) == rightIndex(index)) {
             int minchild = min(leftIndex(index), rightIndex(index));
             swap(minchild, index);
-            if (inBounds(minchild)) {
-                sink(minchild);
-            }
+            sink(minchild);
         }
     }
 
@@ -166,7 +164,14 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T removeMin() {
+        if (size == 0) {
+            return null;
+        }
         T minitem = contents[1].myItem;
+        if (size == 1) {
+            contents[1] = null;
+            return minitem;
+        }
         swap(1, size);
         contents[size] = null;
         size -= 1;
