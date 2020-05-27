@@ -2,6 +2,8 @@ package hw4.puzzle;
 
 import edu.princeton.cs.algs4.Queue;
 
+import java.util.Arrays;
+
 public class Board implements WorldState {
     private int[][] board;
     private int size;
@@ -117,7 +119,12 @@ public class Board implements WorldState {
         return true;
     }
 
-    /** Returns the string representation of the board. 
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(board);
+    }
+
+    /** Returns the string representation of the board.
       * Uncomment this method. */
     public String toString() {
         StringBuilder s = new StringBuilder();
