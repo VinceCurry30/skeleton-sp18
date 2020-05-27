@@ -79,17 +79,15 @@ public class Board implements WorldState {
 
     public int manhattan() {
         int count = 0;
-        for (int i = 0; i < size - 1; i++) {
+        for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
+                if (board[i][j] == 0) {
+                    continue;
+                }
                 int row = (board[i][j] - 1) / size;
                 int col = (board[i][j] - 1) % size;
                 count = count + Math.abs(row - i) + Math.abs(col - j);
             }
-        }
-        for (int j = 0; j < size - 1; j++) {
-            int row = (board[size - 1][j] - 1) / size;
-            int col = (board[size - 1][j] - 1) % size;
-            count = count + Math.abs(row - (size - 1)) + Math.abs(col - j);
         }
         return count;
     }
@@ -124,7 +122,7 @@ public class Board implements WorldState {
         s.append(N + "\n");
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                s.append(String.format("%2d ", tileAt(i,j)));
+                s.append(String.format("%2d ", tileAt(i, j)));
             }
             s.append("\n");
         }

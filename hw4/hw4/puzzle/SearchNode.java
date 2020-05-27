@@ -12,7 +12,8 @@ public class SearchNode implements Comparable<SearchNode> {
     }
 
     public int compareTo(SearchNode sNode) {
-        return this.getMoves() + this.getWord().estimatedDistanceToGoal() - sNode.getMoves() - sNode.getWord().estimatedDistanceToGoal();
+        return this.getMoves() + this.getWord().estimatedDistanceToGoal()
+                - sNode.getMoves() - sNode.getWord().estimatedDistanceToGoal();
     }
 
     public WorldState getWord() {
