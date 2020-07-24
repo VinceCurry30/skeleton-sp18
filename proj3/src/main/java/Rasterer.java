@@ -6,6 +6,8 @@ import java.util.Map;
  * a query result. The getMapRaster method must return a Map containing all
  * seven of the required fields, otherwise the front end code will probably
  * not draw the output correctly.
+ *
+ * @author Lin Shen
  */
 public class Rasterer {
     private final double[] IMG_LonDPP;
