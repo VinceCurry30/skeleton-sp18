@@ -66,6 +66,9 @@ public class Router {
         long node = dest;
         result.add(node);
         while (node != start) {
+            if (!parent.containsKey(node)) {
+                return result;
+            }
             result.add(0, parent.get(node));
             node = parent.get(node);
         }
