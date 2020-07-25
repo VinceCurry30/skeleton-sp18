@@ -29,9 +29,20 @@ public class Router {
         Map<Long, Double> best_dist = new HashMap<>();
         Map<Long, Long> parent = new HashMap<>();
         List<Long> result = new LinkedList<>();
+        boolean isValid = false;
 
         long start = g.closest(stlon, stlat);
         long dest = g.closest(destlon, destlat);
+
+        for (long l: g.vertices()) {
+            if (l == dest) {
+                isValid = true;
+                break;
+            }
+        }
+        if (!isValid) {
+            return result;
+        }
 
         fringe.insert(start, 0);
         best_dist.put(start, 0.);
