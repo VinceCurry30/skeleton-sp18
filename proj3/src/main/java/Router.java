@@ -1,5 +1,4 @@
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,7 +24,41 @@ public class Router {
      */
     public static List<Long> shortestPath(GraphDB g, double stlon, double stlat,
                                           double destlon, double destlat) {
-        return null; // FIXME
+        ArrayHeap<Long> fringe = new ArrayHeap<>();
+        Set<Long> marked = new HashSet<>();
+        Map<Long, Double> best_dist = new HashMap<>();
+        Map<Long, Long> parent = new HashMap<>();
+        List<Long> result = new LinkedList<>();
+
+        long start = g.closest(stlon, stlat);
+        long dest = g.closest(destlon, destlat);
+
+        fringe.insert(start, 0);
+        best_dist.put(start, 0.);
+        while (fringe.size() > 0) {
+            long v = fringe.removeMin();
+            if (marked.contains(v)) {
+                continue;
+            }
+            if (v == dest) {
+                break;
+            }
+            marked.add(v);
+            for (long w: g.adjacent(v)) {
+                if (!best_dist.containsKey(w) || best_dist.get(v) + g.distance(v, w) < best_dist.get(w)) {
+                    best_dist.put(w, best_dist.get(v) + g.distance(v, w));
+                    parent.put(w, v);
+                    fringe.insert(w, best_dist.get(v) + g.distance(v, w) + g.distance(w, dest));
+                }
+            }
+        }
+        long node = dest;
+        result.add(node);
+        while (node != start) {
+            result.add(0, parent.get(node));
+            node = parent.get(node);
+        }
+        return result;
     }
 
     /**
